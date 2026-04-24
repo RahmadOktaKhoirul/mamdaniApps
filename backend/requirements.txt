@@ -5,7 +5,5 @@ supabase==2.4.6
 scikit-fuzzy==0.4.2
 numpy==1.26.4
 pillow==10.3.0
-torch==2.3.0
-torchvision==0.18.0
 python-multipart==0.0.9
 pydantic-settings==2.2.1

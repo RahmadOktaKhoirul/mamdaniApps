@@ -63,11 +63,12 @@ def buat_diagnosa(body: DiagnosaRequest, authorization: str = Header(...)):
             path       = body.foto_url.split("/foto-diagnosa/")[-1]
             foto_bytes = supabase.storage.from_("foto-diagnosa").download(path)
             hasil_ml   = ml_service.predict(foto_bytes)
-            confidence_ml = hasil_ml.confidence
-            penyakit_final, confidence_final, semua_skor_final = _hybrid_score(
-                hasil_fuzzy.semua_skor, hasil_ml.semua_skor
-            )
-            metode = "hybrid"
+            if hasil_ml is not None:
+                confidence_ml = hasil_ml.confidence
+                penyakit_final, confidence_final, semua_skor_final = _hybrid_score(
+                    hasil_fuzzy.semua_skor, hasil_ml.semua_skor
+                )
+                metode = "hybrid"
         except Exception as e:
             logger.warning("ML inference gagal, fallback ke fuzzy: %s", e)
 

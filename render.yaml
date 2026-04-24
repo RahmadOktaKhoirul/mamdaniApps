@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sawit-diagnosa-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: '["*"]'
+      - key: ML_MODEL_PATH
+        value: ml/models/efficientnet_sawit.pt
